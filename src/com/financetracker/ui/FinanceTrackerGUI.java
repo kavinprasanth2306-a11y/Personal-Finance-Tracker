@@ -83,6 +83,10 @@ public class FinanceTrackerGUI extends JFrame implements BudgetAlertListener {
         this.budgetManager = budgetManager;
         this.budgetManager.addBudgetAlertListener(this);
 
+        try {
+            this.budgetManager.resequenceTransactionIds();
+        } catch (Exception ignored) {}
+
         initWindow();
         initComponents();
         refreshAllData();
@@ -473,6 +477,37 @@ public class FinanceTrackerGUI extends JFrame implements BudgetAlertListener {
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Deletion failed: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
+        }
+    }
+
+    private void handleDeleteAllTransactions() {
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "Are you sure you want to delete ALL transactions?\nThis will clear all transactions and reset the ID sequence back to 1.",
+                "Confirm Delete All", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            try {
+                budgetManager.deleteAllTransactions();
+                clearTransactionForm();
+                refreshAllData();
+                JOptionPane.showMessageDialog(this,
+                        "All transactions deleted successfully!\nThe next transaction will start at ID: 1.",
+                        "Sequence Reset", JOptionPane.INFORMATION_MESSAGE);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Failed to clear transactions: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    private void handleResequence() {
+        try {
+            budgetManager.resequenceTransactionIds();
+            refreshAllData();
+            JOptionPane.showMessageDialog(this,
+                    "Transaction IDs successfully resequenced to 1, 2, 3...",
+                    "Resequenced", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Resequence failed: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 

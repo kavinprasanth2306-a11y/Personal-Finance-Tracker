@@ -1,0 +1,14 @@
+# Compiled class files
+bin/
+*.class
+
+# Embedded database
+*.db
+
+# Log files
+*.log
+
+# IDE files
+.idea/
+*.iml
+.vscode/

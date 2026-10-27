@@ -526,11 +526,11 @@ public class FinanceTrackerGUI extends JFrame implements BudgetAlertListener {
         JPanel btnPanel = new JPanel(new GridLayout(1, 2, 8, 0));
         btnPanel.setOpaque(false);
 
-        JButton btnSaveBudget = new JButton("💾 Save Budget");
+        JButton btnSaveBudget = new JButton("Save Budget");
         styleButton(btnSaveBudget, PRIMARY_COLOR, Color.WHITE);
         btnSaveBudget.addActionListener(e -> handleSaveBudget());
 
-        JButton btnDeleteBudget = new JButton("🗑 Remove");
+        JButton btnDeleteBudget = new JButton("Delete Budget");
         styleButton(btnDeleteBudget, DANGER_COLOR, Color.WHITE);
         btnDeleteBudget.addActionListener(e -> handleDeleteBudget());
 

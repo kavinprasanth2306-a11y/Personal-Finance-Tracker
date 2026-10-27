@@ -110,10 +110,10 @@ public class FinanceTrackerGUI extends JFrame implements BudgetAlertListener {
         tabbedPane.setFont(new Font("Segoe UI", Font.BOLD, 13));
         tabbedPane.setBackground(Color.WHITE);
 
-        tabbedPane.addTab("  📊 Dashboard & Analytics  ", createDashboardTab());
-        tabbedPane.addTab("  💳 Manage Transactions  ", createTransactionsTab());
-        tabbedPane.addTab("  🎯 Category Budgets  ", createBudgetsTab());
-        tabbedPane.addTab("  📑 Reports & File Export  ", createReportsTab());
+        tabbedPane.addTab("  Dashboard & Analytics  ", createDashboardTab());
+        tabbedPane.addTab("  Manage Transactions  ", createTransactionsTab());
+        tabbedPane.addTab("  Category Budgets  ", createBudgetsTab());
+        tabbedPane.addTab("  Reports & File Export  ", createReportsTab());
 
         add(tabbedPane, BorderLayout.CENTER);
     }
@@ -143,7 +143,7 @@ public class FinanceTrackerGUI extends JFrame implements BudgetAlertListener {
 
         header.add(titlePanel, BorderLayout.WEST);
 
-        JButton btnQuickRefresh = new JButton("🔄 Refresh Data");
+        JButton btnQuickRefresh = new JButton("Refresh Data");
         styleButton(btnQuickRefresh, new Color(51, 65, 85), Color.WHITE);
         btnQuickRefresh.addActionListener(e -> refreshAllData());
         header.add(btnQuickRefresh, BorderLayout.EAST);
@@ -159,7 +159,7 @@ public class FinanceTrackerGUI extends JFrame implements BudgetAlertListener {
                 new EmptyBorder(10, 24, 10, 24)
         ));
 
-        alertBannerLabel = new JLabel("✓ System Healthy: All category spendings are within allocated budget limits.");
+        alertBannerLabel = new JLabel("[STATUS OK] All category spendings are within allocated budget limits.");
         alertBannerLabel.setFont(new Font("Segoe UI", Font.BOLD, 13));
         alertBannerLabel.setForeground(new Color(6, 95, 70));
 
@@ -176,7 +176,7 @@ public class FinanceTrackerGUI extends JFrame implements BudgetAlertListener {
 
     public void resetAlertBanner() {
         alertBannerPanel.setBackground(new Color(236, 253, 245));
-        alertBannerLabel.setText("✓ System Healthy: All category spendings are within allocated budget limits.");
+        alertBannerLabel.setText("[STATUS OK] All category spendings are within allocated budget limits.");
         alertBannerLabel.setForeground(new Color(6, 95, 70));
     }
 
@@ -327,15 +327,15 @@ public class FinanceTrackerGUI extends JFrame implements BudgetAlertListener {
         JPanel btnPanel = new JPanel(new GridLayout(2, 2, 8, 8));
         btnPanel.setOpaque(false);
 
-        JButton btnAdd = new JButton("➕ Record");
+        JButton btnAdd = new JButton("Add Transaction");
         styleButton(btnAdd, PRIMARY_COLOR, Color.WHITE);
         btnAdd.addActionListener(e -> handleAddTransaction());
 
-        JButton btnUpdate = new JButton("✏ Update");
+        JButton btnUpdate = new JButton("Update Selected");
         styleButton(btnUpdate, new Color(14, 165, 233), Color.WHITE);
         btnUpdate.addActionListener(e -> handleUpdateTransaction());
 
-        JButton btnDelete = new JButton("🗑 Delete");
+        JButton btnDelete = new JButton("Delete Selected");
         styleButton(btnDelete, DANGER_COLOR, Color.WHITE);
         btnDelete.addActionListener(e -> handleDeleteTransaction());
 

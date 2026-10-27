@@ -189,7 +189,7 @@ public class FinanceTrackerGUI extends JFrame implements BudgetAlertListener {
         SwingUtilities.invokeLater(() -> {
             alertBannerPanel.setBackground(new Color(254, 243, 199)); // Amber warning
             alertBannerLabel.setForeground(new Color(146, 64, 14));
-            alertBannerLabel.setText(String.format("⚠ BUDGET WARNING: Category '%s' spending is at %.1f%% ($%.2f / $%.2f)!",
+            alertBannerLabel.setText(String.format("[BUDGET WARNING] Category '%s' spending is at %.1f%% ($%.2f / $%.2f)!",
                     category, percentage, currentSpending, limit));
 
             Toolkit.getDefaultToolkit().beep();
@@ -206,7 +206,7 @@ public class FinanceTrackerGUI extends JFrame implements BudgetAlertListener {
         SwingUtilities.invokeLater(() -> {
             alertBannerPanel.setBackground(new Color(254, 226, 226)); // Crimson alert
             alertBannerLabel.setForeground(new Color(153, 27, 27));
-            alertBannerLabel.setText(String.format("🚨 CRITICAL ALERT: Budget EXCEEDED for '%s' by $%.2f (Spending: %.1f%%)!",
+            alertBannerLabel.setText(String.format("[CRITICAL ALERT] Budget EXCEEDED for '%s' by $%.2f (Spending: %.1f%%)!",
                     category, (currentSpending - limit), percentage));
 
             Toolkit.getDefaultToolkit().beep();

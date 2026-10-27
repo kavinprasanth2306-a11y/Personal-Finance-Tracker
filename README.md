@@ -396,4 +396,5 @@ TRANSACTION DETAIL LOG
 ---
 
 ## 📄 License
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the [MIT License](LICENSE).#   P e r s o n a l - F i n a n c e - T r a c k e r  
+ 

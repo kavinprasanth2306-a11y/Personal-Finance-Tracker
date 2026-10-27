@@ -133,6 +133,14 @@ public class BudgetManager {
         return financeDAO.deleteTransaction(transactionId);
     }
 
+    public boolean deleteAllTransactions() throws SQLException {
+        return financeDAO.deleteAllTransactions();
+    }
+
+    public void resequenceTransactionIds() throws SQLException {
+        financeDAO.resequenceTransactionIds();
+    }
+
     public List<Transaction> getAllTransactions() {
         return financeDAO.getAllTransactions();
     }

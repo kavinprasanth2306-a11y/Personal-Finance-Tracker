@@ -324,7 +324,7 @@ public class FinanceTrackerGUI extends JFrame implements BudgetAlertListener {
         formCard.add(fieldsPanel, BorderLayout.CENTER);
 
         // Form Action Buttons
-        JPanel btnPanel = new JPanel(new GridLayout(2, 2, 8, 8));
+        JPanel btnPanel = new JPanel(new GridLayout(3, 2, 8, 8));
         btnPanel.setOpaque(false);
 
         JButton btnAdd = new JButton("Add Transaction");
@@ -343,10 +343,20 @@ public class FinanceTrackerGUI extends JFrame implements BudgetAlertListener {
         styleButton(btnClear, new Color(100, 116, 139), Color.WHITE);
         btnClear.addActionListener(e -> clearTransactionForm());
 
+        JButton btnDeleteAll = new JButton("Delete All (Reset to 1)");
+        styleButton(btnDeleteAll, new Color(185, 28, 28), Color.WHITE);
+        btnDeleteAll.addActionListener(e -> handleDeleteAllTransactions());
+
+        JButton btnResequence = new JButton("Renumber IDs (1..N)");
+        styleButton(btnResequence, new Color(79, 70, 229), Color.WHITE);
+        btnResequence.addActionListener(e -> handleResequence());
+
         btnPanel.add(btnAdd);
         btnPanel.add(btnUpdate);
         btnPanel.add(btnDelete);
         btnPanel.add(btnClear);
+        btnPanel.add(btnDeleteAll);
+        btnPanel.add(btnResequence);
 
         formCard.add(btnPanel, BorderLayout.SOUTH);
         panel.add(formCard, BorderLayout.WEST);

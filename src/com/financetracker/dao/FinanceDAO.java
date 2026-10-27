@@ -89,16 +89,114 @@ public class FinanceDAO {
     }
 
     /**
-     * Deletes a transaction record by its unique ID.
+     * Deletes a transaction record by its unique ID and automatically
+     * resequences remaining IDs (1, 2, 3...) and resets the autoincrement counter.
      */
     public boolean deleteTransaction(int transactionId) throws SQLException {
         String sql = "DELETE FROM transactions WHERE id = ?";
+        boolean deleted = false;
 
         try (Connection conn = dbManager.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, transactionId);
-            return pstmt.executeUpdate() > 0;
+            deleted = pstmt.executeUpdate() > 0;
+        }
+
+        if (deleted) {
+            resequenceTransactionIds();
+        }
+        return deleted;
+    }
+
+    /**
+     * Deletes all transactions and resets the ID sequence counter to 0,
+     * ensuring the next recorded transaction receives ID 1.
+     */
+    public boolean deleteAllTransactions() throws SQLException {
+        String sql = "DELETE FROM transactions";
+        try (Connection conn = dbManager.getConnection();
+             Statement stmt = conn.createStatement()) {
+            stmt.executeUpdate(sql);
+        }
+        resequenceTransactionIds();
+        return true;
+    }
+
+    /**
+     * Resequences transaction IDs so they are strictly contiguous (1, 2, 3...)
+     * and resets the autoincrement counter to the current row count.
+     * If the table is empty, resets the counter to 0 so the next added row receives ID 1.
+     */
+    public synchronized void resequenceTransactionIds() throws SQLException {
+        boolean isMysql = "MYSQL".equalsIgnoreCase(dbManager.getDbType());
+
+        try (Connection conn = dbManager.getConnection()) {
+            conn.setAutoCommit(false);
+            try {
+                List<Integer> oldIds = new ArrayList<>();
+                try (Statement st = conn.createStatement();
+                     ResultSet rs = st.executeQuery("SELECT id FROM transactions ORDER BY id ASC")) {
+                    while (rs.next()) {
+                        oldIds.add(rs.getInt(1));
+                    }
+                }
+
+                if (oldIds.isEmpty()) {
+                    if (isMysql) {
+                        try (Statement st = conn.createStatement()) {
+                            st.execute("ALTER TABLE transactions AUTO_INCREMENT = 1");
+                        }
+                    } else {
+                        try (Statement st = conn.createStatement()) {
+                            st.execute("DELETE FROM sqlite_sequence WHERE name = 'transactions'");
+                        }
+                    }
+                } else {
+                    // Step 1: Temporarily set IDs to negative numbers to prevent unique constraint collisions
+                    for (int i = 0; i < oldIds.size(); i++) {
+                        int oldId = oldIds.get(i);
+                        int tempId = -(i + 1);
+                        try (PreparedStatement pst = conn.prepareStatement("UPDATE transactions SET id = ? WHERE id = ?")) {
+                            pst.setInt(1, tempId);
+                            pst.setInt(2, oldId);
+                            pst.executeUpdate();
+                        }
+                    }
+
+                    // Step 2: Assign clean sequential IDs: 1, 2, 3...
+                    for (int i = 0; i < oldIds.size(); i++) {
+                        int tempId = -(i + 1);
+                        int newId = i + 1;
+                        try (PreparedStatement pst = conn.prepareStatement("UPDATE transactions SET id = ? WHERE id = ?")) {
+                            pst.setInt(1, newId);
+                            pst.setInt(2, tempId);
+                            pst.executeUpdate();
+                        }
+                    }
+
+                    // Step 3: Update autoincrement sequence counter to the current max ID
+                    int maxId = oldIds.size();
+                    if (isMysql) {
+                        try (Statement st = conn.createStatement()) {
+                            st.execute("ALTER TABLE transactions AUTO_INCREMENT = " + (maxId + 1));
+                        }
+                    } else {
+                        try (PreparedStatement pst = conn.prepareStatement(
+                                "INSERT OR REPLACE INTO sqlite_sequence (name, seq) VALUES ('transactions', ?)")) {
+                            pst.setInt(1, maxId);
+                            pst.executeUpdate();
+                        }
+                    }
+                }
+
+                conn.commit();
+            } catch (SQLException ex) {
+                conn.rollback();
+                throw ex;
+            } finally {
+                conn.setAutoCommit(true);
+            }
         }
     }
 

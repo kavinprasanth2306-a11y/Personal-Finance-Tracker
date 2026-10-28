@@ -12,7 +12,7 @@ public class BudgetExceededException extends Exception {
     private final double attemptedAmount;
 
     public BudgetExceededException(String category, double currentTotal, double budgetLimit, double attemptedAmount) {
-        super(String.format("Budget Exceeded for category '%s'! Limit: $%.2f, Current: $%.2f, Attempted: $%.2f (Breach by: $%.2f)",
+        super(String.format("Budget Exceeded for category '%s'! Limit: ₹%.2f, Current: ₹%.2f, Attempted: ₹%.2f (Breach by: ₹%.2f)",
                 category, budgetLimit, currentTotal, attemptedAmount, (currentTotal + attemptedAmount - budgetLimit)));
         this.category = category;
         this.currentTotal = currentTotal;

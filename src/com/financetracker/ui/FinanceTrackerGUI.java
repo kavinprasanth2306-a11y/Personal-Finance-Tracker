@@ -29,7 +29,7 @@ import java.util.Map;
  * - File I/O triggers for report and CSV export.
  */
 public class FinanceTrackerGUI extends JFrame implements BudgetAlertListener {
-    private static final NumberFormat CURRENCY = NumberFormat.getCurrencyInstance(Locale.US);
+    private static final NumberFormat CURRENCY = NumberFormat.getCurrencyInstance(new Locale("en", "IN"));
     private static final DateTimeFormatter ISO_DATE = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     // Primary Colors
@@ -193,7 +193,7 @@ public class FinanceTrackerGUI extends JFrame implements BudgetAlertListener {
         SwingUtilities.invokeLater(() -> {
             alertBannerPanel.setBackground(new Color(254, 243, 199)); // Amber warning
             alertBannerLabel.setForeground(new Color(146, 64, 14));
-            alertBannerLabel.setText(String.format("[BUDGET WARNING] Category '%s' spending is at %.1f%% ($%.2f / $%.2f)!",
+            alertBannerLabel.setText(String.format("[BUDGET WARNING] Category '%s' spending is at %.1f%% (₹%.2f / ₹%.2f)!",
                     category, percentage, currentSpending, limit));
 
             Toolkit.getDefaultToolkit().beep();
@@ -210,7 +210,7 @@ public class FinanceTrackerGUI extends JFrame implements BudgetAlertListener {
         SwingUtilities.invokeLater(() -> {
             alertBannerPanel.setBackground(new Color(254, 226, 226)); // Crimson alert
             alertBannerLabel.setForeground(new Color(153, 27, 27));
-            alertBannerLabel.setText(String.format("[CRITICAL ALERT] Budget EXCEEDED for '%s' by $%.2f (Spending: %.1f%%)!",
+            alertBannerLabel.setText(String.format("[CRITICAL ALERT] Budget EXCEEDED for '%s' by ₹%.2f (Spending: %.1f%%)!",
                     category, (currentSpending - limit), percentage));
 
             Toolkit.getDefaultToolkit().beep();
@@ -236,10 +236,10 @@ public class FinanceTrackerGUI extends JFrame implements BudgetAlertListener {
         JPanel kpiGrid = new JPanel(new GridLayout(1, 4, 16, 0));
         kpiGrid.setOpaque(false);
 
-        lblTotalIncome = new JLabel("$0.00");
-        lblTotalExpense = new JLabel("$0.00");
-        lblTotalSavings = new JLabel("$0.00");
-        lblNetBalance = new JLabel("$0.00");
+        lblTotalIncome = new JLabel("₹0.00");
+        lblTotalExpense = new JLabel("₹0.00");
+        lblTotalSavings = new JLabel("₹0.00");
+        lblNetBalance = new JLabel("₹0.00");
 
         kpiGrid.add(createKpiCard("Total Income", lblTotalIncome, SUCCESS_COLOR));
         kpiGrid.add(createKpiCard("Total Expenses", lblTotalExpense, DANGER_COLOR));
@@ -316,7 +316,7 @@ public class FinanceTrackerGUI extends JFrame implements BudgetAlertListener {
 
         fieldsPanel.add(new JLabel("Transaction Type:"));
         fieldsPanel.add(comboType);
-        fieldsPanel.add(new JLabel("Amount ($):"));
+        fieldsPanel.add(new JLabel("Amount (₹):"));
         fieldsPanel.add(txtAmount);
         fieldsPanel.add(new JLabel("Category:"));
         fieldsPanel.add(comboCategory);
@@ -561,7 +561,7 @@ public class FinanceTrackerGUI extends JFrame implements BudgetAlertListener {
 
         fields.add(new JLabel("Category Name:"));
         fields.add(txtBudgetCategory);
-        fields.add(new JLabel("Monthly Limit ($):"));
+        fields.add(new JLabel("Monthly Limit (₹):"));
         fields.add(txtBudgetLimit);
         fields.add(new JLabel("Month-Year (YYYY-MM):"));
         fields.add(txtBudgetPeriod);
@@ -815,7 +815,14 @@ public class FinanceTrackerGUI extends JFrame implements BudgetAlertListener {
 
     private double parseAmount(String text) throws InvalidTransactionException {
         try {
-            return Double.parseDouble(text.trim());
+            String sanitized = text.trim()
+                    .replace("₹", "")
+                    .replace("Rs.", "")
+                    .replace("Rs", "")
+                    .replace("$", "")
+                    .replace(",", "")
+                    .trim();
+            return Double.parseDouble(sanitized);
         } catch (Exception e) {
             throw new InvalidTransactionException("amount", "Amount must be a valid positive number.");
         }

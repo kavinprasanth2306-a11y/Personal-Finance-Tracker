@@ -1,4 +1,4 @@
-# Personal Finance Tracker
+﻿# Personal Finance Tracker
 
 A production-ready, modular Java GUI desktop application engineered for personal financial management, expense tracking, dynamic budgeting, and analytical reporting. This application was built as an Object-Oriented Programming (OOP) Micro-Project explicitly demonstrating mastery of **Course Outcome 2 (OOP Principles)** and **Course Outcome 4 (Advanced Programming Constructs)**.
 
@@ -214,8 +214,8 @@ Location: `com.financetracker.ui.FinanceTrackerGUI.java`
 `FinanceTrackerGUI` implements `BudgetAlertListener`:
 - **Top Status Banner:**
   - **Healthy (Green):** `[STATUS OK] All category spendings are within allocated budget limits.`
-  - **Warning (Amber):** `[BUDGET WARNING] Category 'Food & Dining' spending is at 87.6% ($525.50 / $600.00)!`
-  - **Exceeded (Crimson):** `[CRITICAL ALERT] Budget EXCEEDED for 'Food & Dining' by $45.00 (Spending: 107.5%)!`
+  - **Warning (Amber):** `[BUDGET WARNING] Category 'Food & Dining' spending is at 87.6% (₹525.50 / ₹600.00)!`
+  - **Exceeded (Crimson):** `[CRITICAL ALERT] Budget EXCEEDED for 'Food & Dining' by ₹45.00 (Spending: 107.5%)!`
 - **Modal Dialogs:** Immediate `JOptionPane.showMessageDialog` with warning/error icons and an audible system chime.
 
 ### 4. Application Entry Points
@@ -346,34 +346,34 @@ Total Transactions: 10
 --------------------------------------------------------------------------------
 EXECUTIVE SUMMARY
 --------------------------------------------------------------------------------
-  (+) Total Inflow (Income):        $     4850.00
-  (-) Total Outflow (Expenses):     $     1985.50
-  (=) Operational Cash Flow:        $     2864.50
-  (-) Total Transferred to Savings: $      750.00
-  (=) Net Retained Balance:         $     2114.50
+  (+) Total Inflow (Income):        ₹     4850.00
+  (-) Total Outflow (Expenses):     ₹     1985.50
+  (=) Operational Cash Flow:        ₹     2864.50
+  (-) Total Transferred to Savings: ₹      750.00
+  (=) Net Retained Balance:         ₹     2114.50
 --------------------------------------------------------------------------------
 CATEGORY-WISE EXPENSE BREAKDOWN (STREAM AGGREGATIONS)
 --------------------------------------------------------------------------------
-  Category                  Amount ($)      Share (%) 
+  Category                  Amount (₹)      Share (%) 
   --------------------------------------------------------------
-  Rent & Housing            $     1200.00      60.4%
-  Food & Dining             $      525.50      26.5%
-  Entertainment             $      110.00       5.5%
-  Utilities                 $       85.00       4.3%
-  Transportation            $       65.00       3.3%
+  Rent & Housing            ₹     1200.00      60.4%
+  Food & Dining             ₹      525.50      26.5%
+  Entertainment             ₹      110.00       5.5%
+  Utilities                 ₹       85.00       4.3%
+  Transportation            ₹       65.00       3.3%
 --------------------------------------------------------------------------------
 TRANSACTION DETAIL LOG
 --------------------------------------------------------------------------------
-  [EXPENSE] ID: 8     | Date: 2026-10-18 | Type: Expense  | Cat: Food & Dining   | Amt: $    380.00 | Note: Family weekend gathering & restaurants
-  [EXPENSE] ID: 7     | Date: 2026-10-15 | Type: Expense  | Cat: Entertainment   | Amt: $    110.00 | Note: Concert tickets and weekend dinner
-  [EXPENSE] ID: 6     | Date: 2026-10-12 | Type: Expense  | Cat: Transportation  | Amt: $     65.00 | Note: Gasoline refill and metro smartcard top-up
-  [SAVINGS] ID: 10    | Date: 2026-10-10 | Type: Savings  | Cat: Index Funds     | Amt: $    250.00 | Note: Automated recurring ETF investment
-  [EXPENSE] ID: 5     | Date: 2026-10-08 | Type: Expense  | Cat: Utilities       | Amt: $     85.00 | Note: High-speed fiber internet and electric bill
-  [INCOME] ID: 2     | Date: 2026-10-05 | Type: Income   | Cat: Investments     | Amt: $    350.00 | Note: Dividend yield payout Q3
-  [EXPENSE] ID: 4     | Date: 2026-10-04 | Type: Expense  | Cat: Food & Dining   | Amt: $    145.50 | Note: Supermarket monthly groceries restocking
-  [SAVINGS] ID: 9     | Date: 2026-10-03 | Type: Savings  | Cat: Emergency Fund  | Amt: $    500.00 | Note: Transferred to high-yield savings account
-  [EXPENSE] ID: 3     | Date: 2026-10-02 | Type: Expense  | Cat: Rent & Housing  | Amt: $   1200.00 | Note: Apartment monthly lease payment
-  [INCOME] ID: 1     | Date: 2026-10-01 | Type: Income   | Cat: Salary          | Amt: $   4500.00 | Note: Monthly corporate engineering salary
+  [EXPENSE] ID: 8     | Date: 2026-10-18 | Type: Expense  | Cat: Food & Dining   | Amt: ₹    380.00 | Note: Family weekend gathering & restaurants
+  [EXPENSE] ID: 7     | Date: 2026-10-15 | Type: Expense  | Cat: Entertainment   | Amt: ₹    110.00 | Note: Concert tickets and weekend dinner
+  [EXPENSE] ID: 6     | Date: 2026-10-12 | Type: Expense  | Cat: Transportation  | Amt: ₹     65.00 | Note: Gasoline refill and metro smartcard top-up
+  [SAVINGS] ID: 10    | Date: 2026-10-10 | Type: Savings  | Cat: Index Funds     | Amt: ₹    250.00 | Note: Automated recurring ETF investment
+  [EXPENSE] ID: 5     | Date: 2026-10-08 | Type: Expense  | Cat: Utilities       | Amt: ₹     85.00 | Note: High-speed fiber internet and electric bill
+  [INCOME] ID: 2     | Date: 2026-10-05 | Type: Income   | Cat: Investments     | Amt: ₹    350.00 | Note: Dividend yield payout Q3
+  [EXPENSE] ID: 4     | Date: 2026-10-04 | Type: Expense  | Cat: Food & Dining   | Amt: ₹    145.50 | Note: Supermarket monthly groceries restocking
+  [SAVINGS] ID: 9     | Date: 2026-10-03 | Type: Savings  | Cat: Emergency Fund  | Amt: ₹    500.00 | Note: Transferred to high-yield savings account
+  [EXPENSE] ID: 3     | Date: 2026-10-02 | Type: Expense  | Cat: Rent & Housing  | Amt: ₹   1200.00 | Note: Apartment monthly lease payment
+  [INCOME] ID: 1     | Date: 2026-10-01 | Type: Income   | Cat: Salary          | Amt: ₹   4500.00 | Note: Monthly corporate engineering salary
 ================================================================================
 ```
 
@@ -396,5 +396,8 @@ TRANSACTION DETAIL LOG
 ---
 
 ## 📄 License
-This project is licensed under the [MIT License](LICENSE).#   P e r s o n a l - F i n a n c e - T r a c k e r  
+This project is licensed under the [MIT License](LICENSE).
+ 
+ 
+#   P e r s o n a l - F i n a n c e - T r a c k e r  
  

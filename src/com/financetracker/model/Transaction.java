@@ -120,7 +120,7 @@ public abstract class Transaction implements Reportable, Comparable<Transaction>
 
     @Override
     public String getFormattedSummary() {
-        return String.format("[%s] ID: %-5d | Date: %s | Type: %-8s | Cat: %-15s | Amt: $%10.2f | Note: %s",
+        return String.format("[%s] ID: %-5d | Date: %s | Type: %-8s | Cat: %-15s | Amt: ₹%10.2f | Note: %s",
                 getType().name(),
                 id,
                 date.format(DATE_FORMATTER),

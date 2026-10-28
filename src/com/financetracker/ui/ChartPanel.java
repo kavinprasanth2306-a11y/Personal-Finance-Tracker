@@ -17,7 +17,7 @@ import java.util.Map;
  * Satisfies CO4 Data Visualization (zero external library dependency).
  */
 public class ChartPanel extends JPanel {
-    private static final NumberFormat CURRENCY_FORMAT = NumberFormat.getCurrencyInstance(Locale.US);
+    private static final NumberFormat CURRENCY_FORMAT = NumberFormat.getCurrencyInstance(new Locale("en", "IN"));
 
     // Harmonious modern visual palette
     private static final Color BG_DARK = new Color(248, 250, 252);

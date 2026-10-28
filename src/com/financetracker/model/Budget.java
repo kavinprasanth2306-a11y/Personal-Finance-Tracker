@@ -67,7 +67,7 @@ public class Budget implements Reportable {
 
     @Override
     public String getFormattedSummary() {
-        return String.format("Budget [%s] - Category: %-15s | Limit: $%10.2f",
+        return String.format("Budget [%s] - Category: %-15s | Limit: ₹%10.2f",
                 monthYear, category, monthlyLimit);
     }
 

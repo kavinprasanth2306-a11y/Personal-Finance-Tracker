@@ -264,11 +264,11 @@ public class BudgetManager {
         sb.append("--------------------------------------------------------------------------------\n");
         sb.append("EXECUTIVE SUMMARY\n");
         sb.append("--------------------------------------------------------------------------------\n");
-        sb.append(String.format("  (+) Total Inflow (Income):        $%12.2f\n", totalIncome));
-        sb.append(String.format("  (-) Total Outflow (Expenses):     $%12.2f\n", totalExpenses));
-        sb.append(String.format("  (=) Operational Cash Flow:        $%12.2f\n", netCashFlow));
-        sb.append(String.format("  (-) Total Transferred to Savings: $%12.2f\n", totalSavings));
-        sb.append(String.format("  (=) Net Retained Balance:         $%12.2f\n", unallocatedBalance));
+        sb.append(String.format("  (+) Total Inflow (Income):        ₹%12.2f\n", totalIncome));
+        sb.append(String.format("  (-) Total Outflow (Expenses):     ₹%12.2f\n", totalExpenses));
+        sb.append(String.format("  (=) Operational Cash Flow:        ₹%12.2f\n", netCashFlow));
+        sb.append(String.format("  (-) Total Transferred to Savings: ₹%12.2f\n", totalSavings));
+        sb.append(String.format("  (=) Net Retained Balance:         ₹%12.2f\n", unallocatedBalance));
         sb.append("--------------------------------------------------------------------------------\n");
         sb.append("CATEGORY-WISE EXPENSE BREAKDOWN (STREAM AGGREGATIONS)\n");
         sb.append("--------------------------------------------------------------------------------\n");
@@ -276,11 +276,11 @@ public class BudgetManager {
         if (categoryExpenses.isEmpty()) {
             sb.append("  No recorded expense transactions found within this period.\n");
         } else {
-            sb.append(String.format("  %-25s %-15s %-10s\n", "Category", "Amount ($)", "Share (%)"));
+            sb.append(String.format("  %-25s %-15s %-10s\n", "Category", "Amount (₹)", "Share (%)"));
             sb.append("  --------------------------------------------------------------\n");
             for (Map.Entry<String, Double> entry : categoryExpenses.entrySet()) {
                 double pct = totalExpenses > 0 ? (entry.getValue() / totalExpenses) * 100.0 : 0.0;
-                sb.append(String.format("  %-25s $%12.2f     %5.1f%%\n", entry.getKey(), entry.getValue(), pct));
+                sb.append(String.format("  %-25s ₹%12.2f     %5.1f%%\n", entry.getKey(), entry.getValue(), pct));
             }
         }
 
@@ -300,7 +300,7 @@ public class BudgetManager {
      */
     public void exportReportToTxt(File destination, LocalDate start, LocalDate end) throws IOException {
         String report = generateFinancialSummaryText(start, end);
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(destination))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(destination, java.nio.charset.StandardCharsets.UTF_8))) {
             writer.write(report);
         }
     }
